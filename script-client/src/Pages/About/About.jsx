@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 const About = () => {
   return (
@@ -7,10 +6,10 @@ const About = () => {
       <section className="bg-black text-white py-20">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-            About SM Clothing
+            About Homiara Limited
           </h1>
           <p className="text-lg sm:text-xl">
-            Handcrafted. Unique. Made for you.
+            Timeless Decor. Handcrafted Elegance. Inspired Living.
           </p>
         </div>
       </section>
@@ -23,16 +22,10 @@ const About = () => {
               Our Story
             </h2>
             <p className="text-gray-700 mb-4">
-              SM Clothing began with a passion for handcrafted fashion. Founded
-              by designers who believe that every garment should tell a story,
-              we source the finest fabrics and work with skilled artisans to
-              create pieces that stand out. From our first sketch to the final
-              stitch, each item is made with intention and care.
+              Homiara Limited was born from a vision to transform houses into homes through the beauty of handcrafted decor. Our journey began with a deep appreciation for traditional craftsmanship and modern interior aesthetics. We curate unique pieces that evoke emotion and character, sourcing from talented artisans who share our passion for quality and design.
             </p>
             <p className="text-gray-700">
-              Our commitment is to offer you exclusive designs that no one else
-              will have—because style should be about expressing your
-              individuality.
+              Each item in our collection is carefully selected or designed to be a conversation piece, ensuring that your living space reflects your unique personality and style.
             </p>
           </div>
         </div>
@@ -42,77 +35,47 @@ const About = () => {
       <section className="bg-gray-50 py-16 px-4 sm:px-10">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold text-black text-center mb-8">
-            Mission & Values
+            Our Mission & Values
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <h3 className="text-xl font-semibold text-black mb-2">
-                Craftsmanship
+                Artisanal Quality
               </h3>
               <p className="text-gray-600">
-                We partner with artisans who pour their expertise into every
-                stitch, ensuring unparalleled quality and attention to detail.
+                We celebrate the human touch, partnering with master artisans to bring you home decor that is as durable as it is beautiful.
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <h3 className="text-xl font-semibold text-black mb-2">
-                Sustainability
+                Curated Design
               </h3>
               <p className="text-gray-600">
-                From eco-friendly materials to responsible production methods,
-                we strive to minimize our environmental footprint.
+                Our collections are thoughtfully curated to offer a blend of timeless elegance and contemporary flair for every room.
               </p>
             </div>
             <div className="bg-white rounded-lg shadow-md p-6 text-center">
               <h3 className="text-xl font-semibold text-black mb-2">
-                Exclusivity
+                Authentic Living
               </h3>
               <p className="text-gray-600">
-                Each design is a limited edition—once it's sold out, it won't be
-                reproduced. Your style remains uniquely yours.
+                We believe in creating spaces that are authentically yours, providing the accents that turn a house into a sanctuary.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Meet the Team */}
-      {/* <section className="py-16 px-4 sm:px-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold text-black mb-8">
-            Meet the Team
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div className="flex flex-col items-center">
-              <img
-                src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Team Member"
-                className="w-32 h-32 rounded-full object-cover mb-4 shadow-md"
-              />
-              <h3 className="text-xl font-semibold">Aisha Rahman</h3>
-              <p className="text-gray-600">Founder & Lead Designer</p>
-            </div>
-            <div className="flex flex-col items-center">
-              <img
-                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=800"
-                alt="Team Member"
-                className="w-32 h-32 rounded-full object-cover mb-4 shadow-md"
-              />
-              <h3 className="text-xl font-semibold">Rahim Karim</h3>
-              <p className="text-gray-600">Head of Production</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
+      {/* Meet the Team section (commented out as in original) */}
 
       {/* Call to Action */}
       <section className="bg-black text-white py-12">
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-2xl sm:text-3xl font-bold mb-4">
-            Ready to Elevate Your Wardrobe?
+            Ready to Elevate Your Space?
           </h2>
           <p className="text-gray-200 mb-6">
-            Browse our exclusive collections and find your one-of-a-kind piece.
+            Explore our curated collections and discover the perfect accents for your home.
           </p>
           <Link
             to="/shop"

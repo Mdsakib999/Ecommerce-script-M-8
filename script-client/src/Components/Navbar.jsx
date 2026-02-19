@@ -71,7 +71,7 @@ const Navbar = () => {
         <div className="hidden lg:flex items-center justify-between">
           <div className="font-extrabold">
             <NavLink to="/">
-              <h1>SM CLOTHING</h1>
+              <h1>Homiara Limited</h1>
             </NavLink>
           </div>
 
@@ -170,7 +170,7 @@ const Navbar = () => {
         <div className="flex lg:hidden items-center justify-between py-4">
           {/* Logo */}
           <NavLink to="/">
-            <h1>SM CLOTHING</h1>
+            <h1>Homiara Limited</h1>
           </NavLink>
 
           {/* Right‐side icons */}

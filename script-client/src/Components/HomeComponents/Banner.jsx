@@ -1,8 +1,7 @@
-import React from "react";
-import { useGetBannerQuery } from "../../redux/apiSlice";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "slick-carousel/slick/slick.css";
+import { useGetBannerQuery } from "../../redux/apiSlice";
 
 const Banner = () => {
   const { data, isLoading, isError, error } = useGetBannerQuery();
@@ -10,9 +9,9 @@ const Banner = () => {
 
   const defaultBanner = {
     image:
-      "https://via.placeholder.com/1920x500.png?text=Summer+Collection+2024",
-    header: "New Season Arrivals",
-    subHeader: "Discover Our Exclusive Collection",
+      "https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    header: "Curated Home Decor",
+    subHeader: "Timeless pieces for your sanctuary",
   };
 
   const sliderSettings = {
@@ -64,7 +63,7 @@ const BannerSlide = ({ banner }) => (
   <div className="relative w-full h-[500px] flex items-center justify-center">
     <img
       src={banner.image}
-      alt="Fashion Model"
+      alt={banner.header}
       className="absolute w-full h-full object-cover brightness-75"
     />
     <div className="relative z-10 text-center text-white px-6 max-w-2xl">

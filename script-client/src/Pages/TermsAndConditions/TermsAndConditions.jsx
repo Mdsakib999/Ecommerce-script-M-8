@@ -1,4 +1,3 @@
-import React from "react";
 
 const TermsAndConditions = () => {
   return (
@@ -6,7 +5,7 @@ const TermsAndConditions = () => {
       <section id="privacy" className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Privacy Policy</h2>
         <p>
-          At SM Clothing, we respect your privacy and are committed to
+          At Homiara Limited, we respect your privacy and are committed to
           protecting your personal information. We collect data only to process
           orders and improve your shopping experience. We never share your
           personal details with third parties for marketing purposes without

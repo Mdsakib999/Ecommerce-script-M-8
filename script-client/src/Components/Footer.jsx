@@ -1,4 +1,3 @@
-import React from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -8,9 +7,9 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3  lg:grid-cols-4 gap-6 ">
         {/* Brand Section */}
         <div>
-          <h1 className="text-2xl font-bold text-white">SM CLOTHING</h1>
+          <h1 className="text-2xl font-bold text-white">Homiara Limited</h1>
           <p className="text-gray-300 mt-2">
-            Discover fashion that defines you.
+            Elevate your living space with timeless decor.
           </p>
           <div className="flex space-x-4 mt-4 text-gray-300">
             <FaFacebookF className="cursor-pointer text-xl hover:text-gray-200" />
@@ -85,7 +84,7 @@ const Footer = () => {
 
       {/* Copyright Section */}
       <div className="text-center text-gray-300 mt-6 border-t-1 border-gray-500 pt-4">
-        &copy; {new Date().getFullYear()} SM CLOTHING. All rights reserved.
+        &copy; {new Date().getFullYear()} Homiara Limited. All rights reserved.
       </div>
     </footer>
   );

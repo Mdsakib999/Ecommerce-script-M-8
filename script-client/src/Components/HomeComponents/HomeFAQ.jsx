@@ -1,31 +1,31 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const faqData = [
   {
     question: "How long does shipping take?",
     answer:
-      "We ship all orders within 1–2 business days. Once your order is on its way, delivery typically takes 3–5 business days anywhere in Bangladesh. You’ll receive a tracking link via email as soon as your order ships.",
+      "We carefully package and ship all orders within 1–2 business days. Delivery typically takes 3–5 business days anywhere in Bangladesh. You’ll receive a tracking link via email as soon as your order ships to monitor its journey to your home.",
   },
   {
     question: "Can I return or exchange my item?",
     answer:
-      "Yes! If you’re not completely satisfied, you can request a return or exchange within 7 days of delivery. Items must be unworn, unwashed, and in original condition with tags attached. Check our Returns page for full details.",
+      "Yes! If your decor piece isn't perfect for your space, you can request a return or exchange within 7 days of delivery. Items must be in original condition and packaging. Check our Refund Policy page for full details.",
   },
   {
-    question: "Are these pieces truly one-of-a-kind?",
+    question: "Are these pieces mass-produced?",
     answer:
-      "Absolutely. Every garment is handcrafted in limited batches—once it's gone, it’s gone. Our designs won’t be reproduced, so you can rock a look that nobody else has.",
+      "No. We pride ourselves on offering unique, often handcrafted pieces that are sourced in limited quantities. This ensures that your home decor remains exclusive and authentic to your style.",
   },
   {
-    question: "Can I customize my clothing now?",
+    question: "Can I get styling advice?",
     answer:
-      "Customization features are coming soon! Stay tuned: you’ll soon be able to pick colors, add text, and tweak details on select styles. For now, check out our Ready-to-Wear collection.",
+      "We'd love to help! Stay tuned for our upcoming 'Style Consult' feature. In the meantime, feel free to reach out with photos of your space, and our team will be happy to offer suggestions.",
   },
   {
-    question: "How do I contact customer support?",
+    question: "How do I contact Homiara Limited support?",
     answer:
-      "You can email us at support@smclothing.com or use the chat widget in the bottom right corner of the site. We aim to respond within 24 hours, Monday–Saturday.",
+      "You can email us at support@homiara.com or use the contact information provided in our footer. We aim to respond within 24 hours, Monday–Saturday.",
   },
 ];
 
