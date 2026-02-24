@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const user_controller_1 = require("../controllers/user.controller");
+const authMiddleware_1 = require("../middlewares/authMiddleware");
+const router = (0, express_1.Router)();
+router.get("/me", authMiddleware_1.authMiddleware, user_controller_1.getMyData);
+router.get("/products", user_controller_1.getAllProducts);
+router.get("/products/:id", user_controller_1.getProductDetails);
+router.get("/products/:slug", user_controller_1.getProductDetailsBySlug);
+router.get("/featured-products", user_controller_1.getFeturedProducts);
+router.get("/active-coupon", user_controller_1.getActiveCoupon);
+router.get("/order-history", authMiddleware_1.authMiddleware, user_controller_1.getOrderHistory);
+exports.default = router;
