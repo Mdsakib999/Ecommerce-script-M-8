@@ -1,9 +1,8 @@
-import React from "react";
-import { addToCart } from "../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { addToCart } from "../redux/cartSlice";
+
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
@@ -18,14 +17,7 @@ const ProductCard = ({ product }) => {
     };
     dispatch(addToCart(payload));
 
-    toast.success("Added to cart", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
+    toast.success("Added to cart! 🛒");
   };
 
   return (

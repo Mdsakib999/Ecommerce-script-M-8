@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import {
-  useGetAdminProductsQuery,
-  useDeleteProductMutation,
-  useUpdateProductMutation,
-  useToggleFeaturedMutation,
-} from "../../../redux/apiSlice";
+import { useState } from "react";
+import { FiEdit, FiStar, FiTrash, FiX } from "react-icons/fi";
 import UpdateForm from "../../../Components/DashboardComponents/UpdateForm";
-import { FiEdit, FiTrash, FiStar, FiX } from "react-icons/fi";
+import ConfirmationModal from "../../../Components/Utils/ConfirmationModal";
+import {
+    useDeleteProductMutation,
+    useGetAdminProductsQuery,
+    useToggleFeaturedMutation,
+    useUpdateProductMutation,
+} from "../../../redux/apiSlice";
 
 const ManageProducts = () => {
   const {
@@ -22,13 +23,25 @@ const ManageProducts = () => {
   const [toggleFeatured] = useToggleFeaturedMutation();
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
+  // Confirmation Modal State
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null);
+
+  const handleDeleteClick = (id) => {
+    setProductToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (productToDelete) {
       try {
-        await deleteProduct(id).unwrap();
+        await deleteProduct(productToDelete).unwrap();
         refetch();
       } catch (err) {
         console.error("Delete failed:", err);
+      } finally {
+        setIsDeleteModalOpen(false);
+        setProductToDelete(null);
       }
     }
   };
@@ -130,7 +143,7 @@ const ManageProducts = () => {
                       <FiEdit className="w-5 h-5 text-gray-600" />
                     </button>
                     <button
-                      onClick={() => handleDelete(product._id)}
+                      onClick={() => handleDeleteClick(product._id)}
                       className="p-1 hover:bg-red-50 rounded"
                       aria-label="Delete"
                     >
@@ -143,6 +156,16 @@ const ManageProducts = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Delete Product"
+        message="Are you sure you want to delete this product? This action cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        confirmText="Delete"
+      />
 
       {/* Edit Modal */}
       {selectedProduct && (

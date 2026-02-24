@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -5,7 +6,7 @@ import { useGetBannerQuery } from "../../redux/apiSlice";
 
 const Banner = () => {
   const { data, isLoading, isError, error } = useGetBannerQuery();
-  console.log(data);
+  const navigate = useNavigate();
 
   const defaultBanner = {
     image:
@@ -49,17 +50,17 @@ const Banner = () => {
       {banners.length > 1 ? (
         <Slider {...sliderSettings}>
           {banners.map((banner, index) => (
-            <BannerSlide key={index} banner={banner} />
+            <BannerSlide key={index} banner={banner} navigate={navigate} />
           ))}
         </Slider>
       ) : (
-        <BannerSlide banner={banners[0]} />
+        <BannerSlide banner={banners[0]} navigate={navigate} />
       )}
     </div>
   );
 };
 
-const BannerSlide = ({ banner }) => (
+const BannerSlide = ({ banner, navigate }) => (
   <div className="relative w-full h-[500px] flex items-center justify-center">
     <img
       src={banner.image}
@@ -71,7 +72,10 @@ const BannerSlide = ({ banner }) => (
         {banner.header}
       </h1>
       <p className="text-lg mb-6">{banner.subHeader}</p>
-      <button className="font-semibold py-3 px-6 rounded-full shadow-md border-2 bg-black hover:bg-[#f4f3ee] text-white hover:text-gray-900 border-white hover:border-black transition-all">
+      <button
+        onClick={() => navigate("/shop")}
+        className="font-semibold py-3 px-6 rounded-full shadow-md border-2 bg-black hover:bg-[#f4f3ee] text-white hover:text-gray-900 border-white hover:border-black transition-all"
+      >
         Shop Now
       </button>
     </div>

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import FeaturedProducts from "../../Components/HomeComponents/FeaturedProducts";
 import { useGetProductDetailsQuery } from "../../redux/apiSlice";
 import { addToCart } from "../../redux/cartSlice";
-import FeaturedProducts from "../../Components/HomeComponents/FeaturedProducts";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -47,12 +48,13 @@ const ProductDetails = () => {
   const handleAddToCart = (product) => {
     const payload = buildCartPayload(product);
     dispatch(addToCart(payload));
+    toast.success("Added to cart! 🛒");
   };
 
   const handleBuyNow = (product) => {
     const payload = buildCartPayload(product);
     dispatch(addToCart(payload));
-
+    toast.success("Added to cart! 🛒");
     navigate("/cart");
   };
 

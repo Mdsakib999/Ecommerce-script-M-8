@@ -1,7 +1,7 @@
 // SignupForm.js
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { AuthContext } from "../provider/AuthProvider";
-import { toast, ToastContainer } from "react-toastify";
 
 const SignupForm = ({ onClose, onSwitchToLogin }) => {
   const { register, loading } = useContext(AuthContext);
@@ -40,7 +40,7 @@ const SignupForm = ({ onClose, onSwitchToLogin }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
-      <ToastContainer />
+
       <h2 className="text-2xl font-semibold text-center mb-4">Sign Up</h2>
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

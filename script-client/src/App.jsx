@@ -1,7 +1,8 @@
-import Footer from "./Components/Footer";
-import Navbar from "./Components/Navbar";
 import { Outlet, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Footer from "./Components/Footer";
+import Navbar from "./Components/Navbar";
 import ScrollToTop from "./Components/Utils/ScrollToTop";
 function App() {
   const location = useLocation();
@@ -10,20 +11,16 @@ function App() {
   return (
     <>
       <ToastContainer
-        position="top-center"
+        position="top-right"
         autoClose={3000}
         hideProgressBar={false}
-        newestOnTop={false}
+        newestOnTop
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        style={{
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
+        theme="light"
       />
       <ScrollToTop />
       <div>

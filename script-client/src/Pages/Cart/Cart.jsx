@@ -1,8 +1,10 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { updateQuantity, removeFromCart } from "../../redux/cartSlice";
+import { toast } from "react-toastify";
+import ConfirmationModal from "../../Components/Utils/ConfirmationModal";
+import { removeFromCart, updateQuantity } from "../../redux/cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -13,11 +15,15 @@ const Cart = () => {
   // Build array of items
   const cartItems = cartIds.map((id) => cartEntities[id]);
 
+  // Removal Confirmation State
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const [itemToRemove, setItemToRemove] = useState(null);
+
   const handleDecrease = (id, currentQty) => {
     if (currentQty > 1) {
       dispatch(updateQuantity({ id, quantity: currentQty - 1 }));
     } else {
-      dispatch(removeFromCart(id));
+      handleRemoveClick(id);
     }
   };
 
@@ -25,8 +31,18 @@ const Cart = () => {
     dispatch(updateQuantity({ id, quantity: currentQty + 1 }));
   };
 
-  const handleRemove = (id) => {
-    dispatch(removeFromCart(id));
+  const handleRemoveClick = (id) => {
+    setItemToRemove(id);
+    setIsRemoveModalOpen(true);
+  };
+
+  const handleConfirmRemove = () => {
+    if (itemToRemove) {
+      dispatch(removeFromCart(itemToRemove));
+      toast.info("Item removed from cart");
+      setIsRemoveModalOpen(false);
+      setItemToRemove(null);
+    }
   };
 
   // Compute total
@@ -61,7 +77,7 @@ const Cart = () => {
             <div className="flex-1">
               <h3 className="text-lg font-semibold">{item.name}</h3>
               <p className="text-gray-600 mt-1">
-                ${item.price.toFixed(2)} x {item.quantity}
+                ৳{item.price.toFixed(2)} x {item.quantity}
               </p>
               <div className="flex items-center mt-2 space-x-2">
                 <button
@@ -81,10 +97,10 @@ const Cart = () => {
             </div>
             <div className="flex flex-col items-end justify-between m-4">
               <p className="text-lg font-medium">
-                ${(item.price * item.quantity).toFixed(2)}
+                ৳{(item.price * item.quantity).toFixed(2)}
               </p>
               <button
-                onClick={() => handleRemove(item._id)}
+                onClick={() => handleRemoveClick(item._id)}
                 className="text-red-600 hover:text-red-800"
               >
                 <IoTrashOutline size={20} />
@@ -94,7 +110,7 @@ const Cart = () => {
         ))}
       </div>
       <div className="mt-8 flex flex-col sm:flex-row justify-between items-center bg-white shadow rounded-lg p-4">
-        <p className="text-xl font-semibold">Total: ${totalPrice.toFixed(2)}</p>
+        <p className="text-xl font-semibold">Total: ৳{totalPrice.toFixed(2)}</p>
         <Link
           to="/checkout"
           className="mt-4 sm:mt-0 px-6 py-2 bg-black text-white rounded hover:bg-gray-800 transition"
@@ -102,8 +118,18 @@ const Cart = () => {
           Checkout
         </Link>
       </div>
+
+      <ConfirmationModal
+        isOpen={isRemoveModalOpen}
+        title="Remove Item"
+        message="Are you sure you want to remove this item from your cart?"
+        onConfirm={handleConfirmRemove}
+        onCancel={() => setIsRemoveModalOpen(false)}
+        confirmText="Remove"
+      />
     </div>
   );
 };
 
 export default Cart;
+

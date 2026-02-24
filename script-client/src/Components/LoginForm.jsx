@@ -1,8 +1,8 @@
 // LoginForm.js
-import React, { useState, useContext } from "react";
+import { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../provider/AuthProvider";
-import { useNavigate, useLocation } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
 
 const LoginForm = ({ onClose, onSwitchToSignup }) => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const LoginForm = ({ onClose, onSwitchToSignup }) => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg w-96 relative">
       <h2 className="text-2xl font-semibold text-center mb-4">Login</h2>
-      <ToastContainer />
+
 
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         {error && (

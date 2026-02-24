@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {
-  useGetBannerQuery,
-  useUpdateBannerMutation,
-  useCreateBannerMutation,
-  useDeleteBannerMutation,
-} from "../../../redux/apiSlice";
+import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { FiUploadCloud, FiEdit, FiTrash2, FiPlus } from "react-icons/fi";
+import { FiEdit, FiPlus, FiTrash2, FiUploadCloud } from "react-icons/fi";
+import ConfirmationModal from "../../../Components/Utils/ConfirmationModal";
+import {
+    useCreateBannerMutation,
+    useDeleteBannerMutation,
+    useGetBannerQuery,
+    useUpdateBannerMutation,
+} from "../../../redux/apiSlice";
 
 const ManageContent = () => {
   const {
@@ -22,6 +23,10 @@ const ManageContent = () => {
   const [bannerHeader, setBannerHeader] = useState("");
   const [bannerSubHeader, setBannerSubHeader] = useState("");
   const [bannerImage, setBannerImage] = useState(null);
+
+  // Confirmation Modal State
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [bannerToDelete, setBannerToDelete] = useState(null);
 
   const [
     createBanner,
@@ -99,14 +104,23 @@ const ManageContent = () => {
     setBannerImage(null);
   };
 
-  const handleDeleteBanner = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this banner?")) return;
-    try {
-      await deleteBanner(id).unwrap();
-      if (editingBannerId === id) resetForm();
-      refetchBanners();
-    } catch (err) {
-      console.error("Delete failed:", err);
+  const handleDeleteClick = (id) => {
+    setBannerToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (bannerToDelete) {
+      try {
+        await deleteBanner(bannerToDelete).unwrap();
+        if (editingBannerId === bannerToDelete) resetForm();
+        refetchBanners();
+      } catch (err) {
+        console.error("Delete failed:", err);
+      } finally {
+        setIsDeleteModalOpen(false);
+        setBannerToDelete(null);
+      }
     }
   };
 
@@ -270,7 +284,7 @@ const ManageContent = () => {
                       <FiEdit /> Edit
                     </button>
                     <button
-                      onClick={() => handleDeleteBanner(banner._id)}
+                      onClick={() => handleDeleteClick(banner._id)}
                       className="flex-1 flex items-center justify-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-all"
                     >
                       <FiTrash2 /> Delete
@@ -293,6 +307,16 @@ const ManageContent = () => {
           </div>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Delete Banner"
+        message="Are you sure you want to delete this banner? This action cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        confirmText="Delete"
+      />
     </div>
   );
 };

@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { useContext, useState } from "react";
 import { IoCardOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import PaymentForm from "../../Components/PaymentForm";
 import { AuthContext } from "../../provider/AuthProvider";
-import { clearCart } from "../../redux/cartSlice";
 import { useApplyCouponMutation } from "../../redux/apiSlice";
+import { clearCart } from "../../redux/cartSlice";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
@@ -59,8 +60,11 @@ const Checkout = () => {
       setDiscount(d);
       setFinalTotal(ft);
       setCouponError(null);
+      toast.success("Coupon applied! 🎉");
     } catch (err) {
-      setCouponError(err.data?.message || "Failed to validate coupon.");
+      const msg = err.data?.message || "Failed to validate coupon.";
+      setCouponError(msg);
+      toast.error(msg);
       setDiscount(0);
       setFinalTotal(rawSubtotal);
     }
@@ -68,22 +72,23 @@ const Checkout = () => {
 
   // 6) After payment is confirmed
   const handlePaymentSuccess = () => {
+    toast.success("Order placed successfully! 🎉");
     setShowSuccess(true);
     dispatch(clearCart());
   };
 
   const handlePaymentError = (msg) => {
-    alert("Payment failed: " + msg);
+    toast.error("Payment failed: " + msg);
   };
 
   // 7) Validate shipping info before proceeding to payment
   const validateCustomerInfo = () => {
     if (!firstName || !lastName || !contactNo || !address || !city) {
-      alert("Please fill out all required customer information.");
+      toast.warn("Please fill out all required customer information.");
       return false;
     }
     if (cartItems.length === 0) {
-      alert("Your cart is empty.");
+      toast.warn("Your cart is empty.");
       return false;
     }
     return true;

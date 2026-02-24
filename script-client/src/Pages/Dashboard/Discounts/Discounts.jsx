@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import {
-  useGetAllCouponsQuery,
-  useDeleteCouponMutation,
-  useCreateCouponMutation,
-} from "../../../redux/apiSlice";
 import { format } from "date-fns";
+import { useState } from "react";
+import ConfirmationModal from "../../../Components/Utils/ConfirmationModal";
+import {
+    useCreateCouponMutation,
+    useDeleteCouponMutation,
+    useGetAllCouponsQuery,
+} from "../../../redux/apiSlice";
 
 const Discounts = () => {
   const { data: coupons = [], isLoading, isError } = useGetAllCouponsQuery();
@@ -22,6 +23,10 @@ const Discounts = () => {
     expirationDate: "",
     active: true,
   });
+
+  // Confirmation Modal State
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [couponToDelete, setCouponToDelete] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -71,12 +76,20 @@ const Discounts = () => {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Delete this coupon?")) {
+  const handleDeleteClick = (id) => {
+    setCouponToDelete(id);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (couponToDelete) {
       try {
-        await deleteCoupon(id).unwrap();
+        await deleteCoupon(couponToDelete).unwrap();
       } catch (err) {
         console.error("Delete failed:", err);
+      } finally {
+        setIsDeleteModalOpen(false);
+        setCouponToDelete(null);
       }
     }
   };
@@ -166,7 +179,7 @@ const Discounts = () => {
               placeholder="e.g. 50"
               value={form.maxDiscountAmount}
               onChange={handleChange}
-              className="w-full border border-gray-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               min="0"
             />
           </div>
@@ -182,7 +195,7 @@ const Discounts = () => {
               placeholder="e.g. 100"
               value={form.usageLimit}
               onChange={handleChange}
-              className="w-full border border-gray-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               min="0"
             />
           </div>
@@ -198,7 +211,7 @@ const Discounts = () => {
               placeholder="e.g. 1"
               value={form.perUserLimit}
               onChange={handleChange}
-              className="w-full border border-gray-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               min="0"
             />
           </div>
@@ -213,7 +226,7 @@ const Discounts = () => {
               name="expirationDate"
               value={form.expirationDate}
               onChange={handleChange}
-              className="w-full border border-gray-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-100 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
               required
             />
           </div>
@@ -300,7 +313,7 @@ const Discounts = () => {
                     </td>
                     <td className="px-6 py-4 text-center">
                       <button
-                        onClick={() => handleDelete(c._id)}
+                        onClick={() => handleDeleteClick(c._id)}
                         className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
                       >
                         Delete
@@ -313,8 +326,19 @@ const Discounts = () => {
           )}
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        title="Delete Coupon"
+        message="Are you sure you want to delete this coupon? This action cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setIsDeleteModalOpen(false)}
+        confirmText="Delete"
+      />
     </div>
   );
 };
 
 export default Discounts;
+
